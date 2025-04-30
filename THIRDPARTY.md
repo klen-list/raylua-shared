@@ -27,7 +27,7 @@ We are grateful to the developers and communities for their contributions.
 
 - **Version**: raylib 4.5 API
 - **License**: [MIT License](https://opensource.org/licenses/MIT)
-- **Repository**: [GitHub](https://gitlab.com/TSnake41/raylib-lua)
+- **Repository**: [GitLab](https://gitlab.com/TSnake41/raylib-lua)
 - **Usage**: Working LLS support for `rl/raylib` namespace.
 ---
 
