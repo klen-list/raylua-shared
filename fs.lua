@@ -1,7 +1,7 @@
 ---@author Klen_list <https://github.com/klen-list>
 
-local lfs = require("core.thirdparty.lfs_ffi")
-require('core.thirdparty.utf8_filenames')
+local lfs = require("core.third-party.lfs_ffi")
+require('core.third-party.utf8_filenames')
 
 FSMODE_READ = 0x1
 FSMODE_WRITE = 0x2
