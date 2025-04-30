@@ -1,3 +1,5 @@
+---@diagnostic disable
+
 local bit = require "bit"
 local ffi = require "ffi"
 
