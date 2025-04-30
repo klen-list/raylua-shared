@@ -111,20 +111,3 @@ function gui.ThinkPanel(panel)
 		gui.ThinkPanel(pnl)
 	end
 end
-
-function gui.MousePos()
-	local pos = rl.GetMousePosition()
-	return pos.x, pos.y
-end
-
-function gui.MouseInBounds(rect)
-	return rl.CheckCollisionPointRec(rl.GetMousePosition(), rect)
-end
-
-function ScrW()
-	return rl.GetScreenWidth()
-end
-
-function ScrH()
-	return rl.GetScreenHeight()
-end

@@ -18,8 +18,13 @@ end
 ---@param rect unknown
 ---@return boolean
 ---@nodiscard
-function CursorInBounds(rect)
+function gui.MouseInBounds(rect)
 	return rl.CheckCollisionPointRec(rl.GetMousePosition(), rect)
+end
+
+function gui.MousePos()
+	local pos = rl.GetMousePosition()
+	return pos.x, pos.y
 end
 
 do
