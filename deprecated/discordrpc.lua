@@ -1,3 +1,5 @@
+---@diagnostic disable
+
 local ffi = require "ffi"
 local discordrpc_dll = ffi.load "./bin/discord-rpc"
 
@@ -19,16 +21,16 @@ ffi.cdef [[
 		const char* spectateSecret; // max 128 bytes
 		int8_t instance;
 	} DiscordRichPresence;
-	
+
 	typedef struct {
 		const char* userId;
 		const char* username;
 		const char* discriminator;
 		const char* avatar;
 	} DiscordUser;
-	
+
 	typedef void (*readyCallback) (const DiscordUser* request);
-	
+
 	typedef struct {
 		readyCallback ready;
 		void (*disconnected) (int errorCode, const char* message);
@@ -86,9 +88,9 @@ end
 event.on("Initialize", "DISCORD_RPC_INIT", function()
 	local handlers = ffi.new "DiscordEventHandlers"
 	ffi.fill(handlers, ffi.sizeof(handlers))
-	
+
 	--handlers.ready = ffi.cast("readyCallback", callback)
-	
+
 	discordrpc.Init("", handlers, 1)
 	discordrpc.SetState "Idle"
 end)

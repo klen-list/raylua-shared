@@ -1,10 +1,12 @@
+---@diagnostic disable
+
 local vector3 = {}
 
 vector3.__index = function(self, key)
 	if key == "x" then return rawget(self, 1) end
 	if key == "y" then return rawget(self, 2) end
 	if key == "z" then return rawget(self, 3) end
-	
+
 	local func = vector3[key]
 	if func ~= nil then return func end
 end

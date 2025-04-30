@@ -11,5 +11,5 @@ LOG_ERROR = rl.LOG_ERROR
 ---@param ... string
 ---@return nil
 function Log(level, text, ...)
-	rl.TraceLog(level, text, ...)
+	return rl.TraceLog(level, text, ...)
 end

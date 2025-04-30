@@ -4,18 +4,14 @@
 ---@return number
 ---@nodiscard
 function ScrW()
-
 	return rl.GetScreenWidth()
-
 end
 
 ---Возвращает высоту окна программы.
 ---@return number
 ---@nodiscard
 function ScrH()
-
 	return rl.GetScreenHeight()
-
 end
 
 ---Проверяет находится ли курсор в пределах прямоугольника.
@@ -23,9 +19,7 @@ end
 ---@return boolean
 ---@nodiscard
 function CursorInBounds(rect)
-
 	return rl.CheckCollisionPointRec(rl.GetMousePosition(), rect)
-
 end
 
 do
@@ -61,8 +55,6 @@ do
 	---@return unknown font
 	---@nodiscard
     function LoadFont(path, size)
-
 		return rl.LoadFontEx(path, size or 24, codepoints, 256)
-
     end
 end

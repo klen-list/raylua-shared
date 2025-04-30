@@ -89,7 +89,7 @@ end
 ---@return string
 ---@nodiscard
 function file_class:ReadLine()
-	return self:GetStream():read "*l"
+	return self:GetStream():read("*l")
 end
 
 ---Читает один байт из файла в виде числа.

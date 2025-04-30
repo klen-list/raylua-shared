@@ -1,3 +1,5 @@
+---@diagnostic disable
+
 local ffi = require "ffi"
 
 ffi_t = ffi_t or {}
@@ -8,7 +10,7 @@ if WINDOWS then
 	function ffi_t.confree()
 		return ffi.C.FreeConsole()
 	end
-	
+
 	ffi.cdef "bool __stdcall SetConsoleOutputCP (int)"
 	function ffi_t.consetcp(codepage)
 		return ffi.C.SetConsoleOutputCP(codepage)
