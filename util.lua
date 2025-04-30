@@ -1,58 +1,128 @@
-function isstring(s) return type(s) == "string" end
-function isnumber(n) return type(n) == "number" end
-function istable(t) return type(t) == "table" end
-function isfunction(f) return type(f) == "function" end
+---@author Klen_list <https://github.com/klen-list>
+
+---@class ffilib
+ffi = require("ffi")
 
 Format = string.format
+ColorWhite = rl.RAYWHITE
 
+---Проверяет является ли переменная строкой.
+---@param obj any
+---@return boolean
+---@nodiscard
+function StringOk(obj)
+	return type(obj) == "string"
+end
+
+---Проверяет является ли переменная числом.
+---@param obj any
+---@return boolean
+---@nodiscard
+function NumberOk(obj)
+	return type(obj) == "number"
+end
+
+---Проверяет является ли переменная таблицей.
+---@param obj any
+---@return boolean
+---@nodiscard
+function TableOk(obj)
+	return type(obj) == "table"
+end
+
+---Проверяет является ли переменная функцией.
+---@param obj any
+---@return boolean
+---@nodiscard
+function FunctionOk(obj)
+	return type(obj) == "function"
+end
+
+---Загружает текстуру из файла изображения.
+---@param path string
+---@return unknown texture
+---@nodiscard
+function Texture(path)
+	assert(StringOk(path))
+
+	local bg = rl.LoadImage(path)
+	local tex_bg = rl.LoadTextureFromImage(bg)
+	rl.UnloadImage(bg)
+
+	return tex_bg
+end
+
+---Проверяет ОС где запущена программа и создает ошибку, если это не `Windows`.
+---@return nil
+function DEFINE_WINDOWSONLY()
+	assert(jit.os == "Windows", "This app support only Windows!")
+end
+
+---Блокирует выполнение программы на указанное время.
+---@param time number
+---@return nil
+function DebugHang(time)
+	time = time or 60
+
+	local startTime = os.time()
+	while true do
+		if os.time() > startTime + time then break end
+	end
+end
+
+---Переводит первый символ строки в верхний регистр.
+---@param str string
+---@return string
+---@nodiscard
 function string.upperfirst(str)
-	assert(isstring(str))
-	return str:gsub("^%l", string.upper)
+	assert(StringOk(str))
+
+	local out = str:gsub("^%l", string.upper)
+	return out
 end
 
-function table.isempty(t)
-	return next(t) == nil
+---Проверяет пустая ли таблица.
+---@param tbl table
+---@return boolean
+---@nodiscard
+function table.isempty(tbl)
+	return next(tbl) == nil
 end
 
--- for debug
-function tprint(t, out)
-	assert(istable(t))
-	
-	local out = out or ""
-	for key, val in pairs(t) do
-		if istable(val) then
-			print(out .. tostring(key))
-			out = out .. " "
-			tprint(val, out)
-			out = ""
+---Дебаг функция для вывода таблицы в консоль.
+---@param tbl table
+---@param outString string?
+---@return nil
+function PrintTable(tbl, outString)
+	assert(TableOk(tbl))
+
+	for key, val in pairs(tbl) do
+		if TableOk(val) then
+			print(outString .. tostring(key))
+			outString = outString .. ' '
+
+			PrintTable(val, outString)
+			outString = ''
+
 			goto next
 		end
-		print(out .. tostring(key) .. '\t' .. val)
+
+		print(outString .. tostring(key) .. '\t' .. val)
+
 		::next::
 	end
 end
 
-function table.prettystr(t, print_tables)
-	local out = "{\n"
-	for key, val in pairs(t) do
-		local fout = "\t%s = %s %s,\n"
-		local hex = ""
-		if isnumber(val) then
-			hex = "(0x" .. bit.tohex(val) .. ')'
-		elseif istable(val) and print_tables then
-			val = table.prettystr(val, print_tables)
-		end
-		out = out .. fout:format(tostring(key):upperfirst(), tostring(val), hex)
-	end
-	out = out .. '}'
-	return out
-end
-
+---Создает в таблице `Get[name]`/`Set[name]` функции для указанного ключа.
+---@param t table
+---@param key string
+---@param name string
+---@return nil
 function MakeAccessor(t, key, name)
-	assert(istable(t))
-	assert(isstring(key))
-	assert(isstring(name))
-	
-	t["Get" .. name:upperfirst()] = function() return t[key] end
-	t["Set" .. name:upperfirst()] = function(self, val) t[key] = val end
+	assert(TableOk(t))
+	assert(StringOk(key))
+	assert(StringOk(name))
+
+	t["Get" .. name:upperfirst()] = function(tbl) return tbl[key] end
+	t["Set" .. name:upperfirst()] = function(tbl, val) tbl[key] = val end
 end
