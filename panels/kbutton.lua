@@ -2,7 +2,7 @@ local PANEL = {}
 
 function PANEL:Init()
 	local w, h = self:GetSize()
-	self.rlRect = ffi.new("Rectangle", { 0, 0, w, h })
+	self.rlRect = rl.new("Rectangle", { 0, 0, w, h })
 	self.strText = "Кнопка"
 end
 

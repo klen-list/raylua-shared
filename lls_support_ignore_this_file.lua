@@ -2541,12 +2541,12 @@ local Matrix = {}
 ---Constructed using `rl.new("Color", ...)`
 local Color = {}
 ---@class Rectangle @ Rectangle, 4 components
----@alias Rectangle_ptr Rectangle
----@alias Rectangle_ptr_ptr Rectangle
 ---@field x number # Rectangle top-left corner position x
 ---@field y number # Rectangle top-left corner position y
 ---@field width number # Rectangle width
 ---@field height number # Rectangle height
+---@alias Rectangle_ptr Rectangle
+---@alias Rectangle_ptr_ptr Rectangle
 ---Constructed using `rl.new("Rectangle", ...)`
 local Rectangle = {}
 ---@class Image @ Image, pixel data stored in CPU memory (RAM)
