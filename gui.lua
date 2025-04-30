@@ -59,9 +59,13 @@ do
 end
 
 function gui.CreateRootPanel()
+	if ROOT_PANEL then return ROOT_PANEL end
+
 	gui.Register("KGUI_ROOT", {})
 	ROOT_PANEL = gui.Create("KGUI_ROOT")
 	ROOT_PANEL:SetSize(ScrW(), ScrH())
+
+	return ROOT_PANEL
 end
 
 function gui.Create(class, parent)
