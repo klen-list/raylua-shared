@@ -1,3 +1,5 @@
+---@author Klen_list <https://github.com/klen-list>
+
 ---@diagnostic disable-next-line: lowercase-global
 gui = gui or {}
 local Classes = {}
@@ -58,6 +60,9 @@ do
 	end
 end
 
+---Создает глобальный экземпляр корневой панели<br>
+---Все созданные панели фактически являются ее дочерней
+---@return table rootPanel Глобальная корневая панель
 function gui.CreateRootPanel()
 	if ROOT_PANEL then return ROOT_PANEL end
 
@@ -68,6 +73,10 @@ function gui.CreateRootPanel()
 	return ROOT_PANEL
 end
 
+---Создает новый экземпляр панели из ранее зарегистрированного класса
+---@param class string Класс создаваемой панели
+---@param parent? table Родительская панель
+---@return table panel Новый экземпляр панели
 function gui.Create(class, parent)
 	assert(TableOk(Classes[class]), "Invalid panel class!")
 	parent = parent or ROOT_PANEL
@@ -92,6 +101,8 @@ function gui.Create(class, parent)
 	return pnl
 end
 
+---Запускает событие `Paint` на панели и ее дочерних элементах
+---@param panel table Панель на которой нужно запустить событие
 function gui.PaintPanel(panel)
 	-- Bug: children scissor modes can override olds
 	-- TODO: Clamp new modes to old modes bounds
@@ -107,6 +118,8 @@ function gui.PaintPanel(panel)
 	rl.EndScissorMode()
 end
 
+---Запускает событие `Think` на панели и ее дочерних элементах
+---@param panel table Панель на которой нужно запустить событие
 function gui.ThinkPanel(panel)
 	if panel.Think then
 		panel:Think()

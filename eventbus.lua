@@ -5,10 +5,10 @@
 eventbus = eventbus or {}
 eventbus.listeners = eventbus.listeners or {}
 
----@param eventName string
----@param callbackName string
----@param callback fun(...): nil
----@return nil
+---Присоеденяет функцию обратного вызова к указанному событию
+---@param eventName string Имя события для присоединения
+---@param callbackName string Уникальное название обратного вызова
+---@param callback fun(...): nil Функция обратного вызова
 function eventbus.attach(eventName, callbackName, callback)
 	assert(StringOk(eventName))
 	assert(StringOk(callbackName))
@@ -18,9 +18,9 @@ function eventbus.attach(eventName, callbackName, callback)
 	eventbus.listeners[eventName][callbackName] = callback
 end
 
----@param eventName string
----@param ... any
----@return nil
+---Запускает все обратные вызовы по указанному имени события
+---@param eventName string Имя события для которого нужно вызвать все обратные вызовы
+---@param ... any Аргументы что будут переданны во все функции обратных вызовов
 function eventbus.run(eventName, ...)
 	assert(StringOk(eventName))
 
@@ -32,9 +32,9 @@ function eventbus.run(eventName, ...)
 	end
 end
 
----@param eventName string
----@param callbackName string
----@return nil
+---Отключает функцию обратного вызова от указанного события
+---@param eventName string Имя события для отключения
+---@param callbackName string Уникальное название обратного вызова что будет отключен
 function eventbus.detach(eventName, callbackName)
 	assert(StringOk(eventName))
 	assert(StringOk(callbackName))

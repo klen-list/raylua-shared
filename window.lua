@@ -1,27 +1,30 @@
 ---@author Klen_list <https://github.com/klen-list>
 
----Возвращает ширину окна программы.
----@return number
+---Возвращает высоту окна приложения
+---@return number w Высота окна
 ---@nodiscard
 function ScrW()
 	return rl.GetScreenWidth()
 end
 
----Возвращает высоту окна программы.
----@return number
+---Возвращает ширину окна приложения
+---@return number h Ширина окна
 ---@nodiscard
 function ScrH()
 	return rl.GetScreenHeight()
 end
 
----Проверяет находится ли курсор в пределах прямоугольника.
----@param rect unknown
----@return boolean
+---Проверяет что курсор находится в границе переданного прямоугольника
+---@param rect Rectangle Прямоугольник для проверки
+---@return boolean ok Нет пересечений границ
 ---@nodiscard
 function gui.MouseInBounds(rect)
 	return rl.CheckCollisionPointRec(rl.GetMousePosition(), rect)
 end
 
+---Получает текущую позицию курсора
+---@return number x Позиция по X
+---@return number y Позиция по Y
 function gui.MousePos()
 	local pos = rl.GetMousePosition()
 	return pos.x, pos.y
@@ -56,8 +59,8 @@ do
 
 	---Загружает шрифт по указанному пути.<br>
 	---**Шрифты нужно загружать строго ПОСЛЕ инициализации окна.**
-	---@param path string
-	---@return unknown font
+	---@param path string Путь к шрифту
+	---@return Font font Загруженный шрифт
 	---@nodiscard
     function LoadFont(path, size)
 		return rl.LoadFontEx(path, size or 24, codepoints, 256)
