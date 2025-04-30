@@ -2560,14 +2560,14 @@ local Rectangle = {}
 ---Constructed using `rl.new("Image", ...)`
 local Image = {}
 ---@class Texture @ Texture, tex data stored in GPU memory (VRAM)
----@alias Texture_ptr Texture
----@alias Texture_ptr_ptr Texture
----@alias Texture2D Texture
 ---@field id number # OpenGL texture id
 ---@field width number # Texture base width
 ---@field height number # Texture base height
 ---@field mipmaps number # Mipmap levels, 1 by default
 ---@field format number # Data format (PixelFormat type)
+---@alias Texture_ptr Texture
+---@alias Texture_ptr_ptr Texture
+---@alias Texture2D Texture
 ---Constructed using `rl.new("Texture", ...)`
 local Texture = {}
 ---@class RenderTexture @ RenderTexture, fbo for texture rendering
