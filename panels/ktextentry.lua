@@ -10,6 +10,8 @@ function PANEL:Init()
 	rl.GuiSetStyle(rl.TEXTBOX, rl.BORDER_COLOR_PRESSED, rl.ColorToInt(ColorWhite))
 	rl.GuiSetStyle(rl.TEXTBOX, rl.TEXT_COLOR_PRESSED, rl.ColorToInt(ColorWhite))
 
+	rl.GuiSetStyle(rl.TEXTBOX, rl.BASE_COLOR_DISABLED, rl.ColorToInt({0, 0, 0}))
+
 	self.Selected = false
 end
 
@@ -35,8 +37,22 @@ function PANEL:Paint(w, h)
 		end
 	end
 
+	if self.Selected then
+		rl.GuiEnable()
+	else
+		-- Система отрисовки raygui использует глобальный флаг guiState
+		--
+		-- Со значением STATE_DISABLED при выключении ввода у GuiTextBox
+		-- используется GuiGetStyle от BASE_COLOR_DISABLED, иначе BLANK (нет фона)
+		--
+		-- Сам BLANK мы поменять не можем, поэтому остается временно менять guiState
+		rl.GuiDisable()
+	end
+
 	self:LegacyPaintPos(true)
 	rl.GuiTextBox(self.rlRect, self.entryText, 16, self.Selected)
+
+	rl.GuiEnable()
 end
 
 gui.Register("KTextEntry", PANEL)
