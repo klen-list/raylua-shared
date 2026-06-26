@@ -5,6 +5,7 @@ function PANEL:Init()
 	self.rlRect = rl.new("Rectangle", { 0, 0, w, h })
 
 	self.entryText = ffi.new("char[?]", 256)
+	self.maxText = 255
 
 	rl.GuiSetStyle(rl.TEXTBOX, rl.BASE_COLOR_PRESSED, rl.ColorToInt({0, 0, 0}))
 	rl.GuiSetStyle(rl.TEXTBOX, rl.BORDER_COLOR_PRESSED, rl.ColorToInt(ColorWhite))
@@ -17,6 +18,13 @@ end
 
 function PANEL:GetText()
 	return ffi.string(self.entryText)
+end
+
+function PANEL:SetText(text)
+	ffi.fill(self.entryText, 256, 0)
+	if StringOk(text) and text ~= "" then
+		ffi.copy(self.entryText, text, math.min(#text, self.maxText))
+	end
 end
 
 function PANEL:PerformLayout(x, y, w, h)
@@ -50,7 +58,7 @@ function PANEL:Paint(w, h)
 	end
 
 	self:LegacyPaintPos(true)
-	rl.GuiTextBox(self.rlRect, self.entryText, 16, self.Selected)
+	rl.GuiTextBox(self.rlRect, self.entryText, self.maxText, self.Selected)
 
 	rl.GuiEnable()
 end
