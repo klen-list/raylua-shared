@@ -1,14 +1,14 @@
 ---@author Klen_list <https://github.com/klen-list>
 
----Возвращает высоту окна приложения
----@return number w Высота окна
+---Возвращает ширину окна приложения
+---@return number w Ширина окна
 ---@nodiscard
 function ScrW()
 	return rl.GetScreenWidth()
 end
 
----Возвращает ширину окна приложения
----@return number h Ширина окна
+---Возвращает высоту окна приложения
+---@return number h Высота окна
 ---@nodiscard
 function ScrH()
 	return rl.GetScreenHeight()
