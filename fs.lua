@@ -194,7 +194,7 @@ end
 ---@return string? err Сообщение о ошибке
 ---@nodiscard
 function file_class:Tell()
-	return file_class:Seek()
+	return self:Seek()
 end
 
 ---Пропускает указанное кол-во байтов в файле от текущей позиции.
